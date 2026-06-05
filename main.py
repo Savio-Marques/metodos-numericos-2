@@ -1,44 +1,37 @@
 import numpy as np
-import matplotlib.pyplot as plt
-import imagens as img_proc
-from PIL import Image
-import os
+import autovalores as autov
 
 if __name__ == "__main__":
-    print("Carregando imagem local")
-    
-    nome_ficheiro = "minha_foto.jpg"
-    
-    if not os.path.exists(nome_ficheiro):
-        print(f"Erro: Não foi possível encontrar o ficheiro '{nome_ficheiro}'!")
-        print("Certifique-se de que a imagem está na mesma pasta que este script main.py.")
-    else:
-        img_pil = Image.open(nome_ficheiro)
+    print("="*50)
+    print(" CÁLCULO DE AUTOVALORES (MÉTODO DA POTÊNCIA)")
+    print("="*50)
 
-        img_pil = img_pil.convert('L')
-        
-        img_pil = img_pil.resize((200, 200))
-        
-        imagem_real = np.array(img_pil) / 255.0
-        
-        resultado_sobel = img_proc.algoritmo_1_sobel(imagem_real, threshold=0.15)
-        
-        resultado_laplace = img_proc.algoritmo_2_laplace(imagem_real, tolerancia=0.04)
-        
-        fig, axs = plt.subplots(1, 3, figsize=(12, 4))
-        
-        axs[0].imshow(imagem_real, cmap='gray')
-        axs[0].set_title('Imagem Original')
-        axs[0].axis('off')
-        
-        axs[1].imshow(resultado_sobel, cmap='gray')
-        axs[1].set_title('Sobel (Bordas)')
-        axs[1].axis('off')
-        
-        axs[2].imshow(resultado_laplace, cmap='gray')
-        axs[2].set_title('Laplace (Bordas)')
-        axs[2].axis('off')
-        
-        plt.tight_layout()
-        plt.show()
-        print("Processamento concluído")
+    A1 = np.array([
+        [5.0, 2.0, 1.0],
+        [2.0, 3.0, 1.0],
+        [1.0, 1.0, 2.0]
+    ])
+    
+    A2 = np.array([
+        [40.0,  8.0,  4.0,  2.0, 1.0],
+        [ 8.0, 30.0, 12.0,  6.0, 2.0],
+        [ 4.0, 12.0, 20.0,  1.0, 2.0],
+        [ 2.0,  6.0,  1.0, 25.0, 4.0],
+        [ 1.0,  2.0,  2.0,  4.0, 5.0]
+    ])
+
+    v0_A1 = np.ones(3)
+    v0_A2 = np.ones(5)
+
+    lambda1, x1, iters1 = autov.potencia_regular(A1, v0_A1)
+    print("\n[Matriz A1 (3x3)]")
+    print(f"Iterações necessárias: {iters1}")
+    print(f"Autovalor Dominante  : {lambda1:.5f}")
+    print(f"Autovetor Associado  : {x1}")
+
+    lambda2, x2, iters2 = autov.potencia_regular(A2, v0_A2)
+    print("\n[Matriz A2 (5x5)]")
+    print(f"Iterações necessárias: {iters2}")
+    print(f"Autovalor Dominante  : {lambda2:.5f}")
+    print(f"Autovetor Associado  : {x2}")
+    print("="*50)
