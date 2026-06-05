@@ -1,38 +1,54 @@
 import numpy as np
-import autovalores as autov
+import pvi
+
+def F_PVI_2(S, t):
+    v = S[0]
+    y = S[1]
+    
+    g = 10.0
+    k = 0.25
+    m = 2.0
+    
+    dv_dt = -g - (k / m) * v
+    dy_dt = v
+    
+    return np.array([dv_dt, dy_dt])
+
+def paragem_no_mar(t, S):
+    y = S[1]
+    return y <= 0
 
 if __name__ == "__main__":
-    np.set_printoptions(precision=4, suppress=True, linewidth=100)
+    print("="*65)
+    print(" TAREFA 17: SOLUÇÃO DE PVI (QUEDA LIVRE) COM RUNGE-KUTTA 3")
+    print("="*65)
     
-    print("="*60)
-    print(" TAREFA #13 E #15: HOUSEHOLDER E MÉTODO QR")
-    print("="*60)
+    t0 = 0.0
+    v0 = 5.0 
+    y0 = 200.0 
+    S0 = [v0, y0]
     
-    A = np.array([
-        [40.0,  8.0,  4.0,  2.0, 1.0],
-        [ 8.0, 30.0, 12.0,  6.0, 2.0],
-        [ 4.0, 12.0, 20.0,  1.0, 2.0],
-        [ 2.0,  6.0,  1.0, 25.0, 4.0],
-        [ 1.0,  2.0,  2.0,  4.0, 5.0]
-    ])
+    valores_dt = [0.1, 0.01, 0.001, 0.0001]
     
-    print("\n1. MATRIZ ORIGINAL (A):")
-    print(A)
-    
-    A_tridiag = autov.householder_tridiagonal(A)
-    
-    print("\n2. MATRIZ TRIDIAGONALIZADA (Householder) - TAREFA #13:")
-    print("(Note como os zeros aparecem nos cantos!)")
-    print(A_tridiag)
-    
-    autovalores_finais, iters = autov.metodo_qr(A_tridiag)
-    
-    autovalores_finais = np.sort(autovalores_finais)[::-1]
-    
-    print(f"\n3. RESULTADO DO MÉTODO QR - TAREFA #15:")
-    print(f"O Método convergiu em {iters} iterações.")
-    print("Todos os Autovalores Encontrados:")
-    for i, val in enumerate(autovalores_finais, 1):
-        print(f" λ{i} = {val:.6f}")
+    for dt in valores_dt:
+        t_hist, S_hist = pvi.resolver_pvi(F_PVI_2, S0, t0, dt, paragem_no_mar)
         
-    print("\n" + "="*60)
+        v_hist = S_hist[:, 0]
+        y_hist = S_hist[:, 1]
+        
+        idx_max = np.argmax(y_hist)
+        y_max = y_hist[idx_max]
+        
+        t_max = t_hist[idx_max]
+        
+        t_total = t_hist[-1]
+        
+        v_impacto = v_hist[-1]
+        
+        print(f"\n[ Resultados para dt = {dt} ]")
+        print(f"a) Altura máxima alcançada (y_max) : {y_max:.5f} m")
+        print(f"b) Tempo até a altura máxima (t_max): {t_max:.5f} s")
+        print(f"c) Tempo total até o impacto (t_tot): {t_total:.5f} s")
+        print(f"d) Velocidade de impacto no mar     : {v_impacto:.5f} m/s")
+
+    print("\n" + "="*65)
