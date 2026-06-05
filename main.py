@@ -18,5 +18,4 @@ if __name__ == "__main__":
     for i in range(len(x)):
         print(f"{i:<5} | {x[i]:<6.3f} | {y_mef[i]:<15.6f} | {y_exato[i]:<15.6f}")
     
-    print("\nO MEF mostrou-se extremamente preciso!")
     print("="*60)
