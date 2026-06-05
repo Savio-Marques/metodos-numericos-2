@@ -11,7 +11,6 @@ def F_PVI_2(S, t):
     
     dv_dt = -g - (k / m) * v
     dy_dt = v
-    
     return np.array([dv_dt, dy_dt])
 
 def paragem_no_mar(t, S):
@@ -20,29 +19,26 @@ def paragem_no_mar(t, S):
 
 if __name__ == "__main__":
     print("="*65)
-    print(" TAREFA 17: SOLUÇÃO DE PVI (QUEDA LIVRE) COM RUNGE-KUTTA 3")
+    print(" TAREFA 18: SOLUÇÃO DE PVI COM PREDITOR-CORRETOR 4ª ORDEM")
     print("="*65)
     
     t0 = 0.0
-    v0 = 5.0 
-    y0 = 200.0 
+    v0 = 5.0     
+    y0 = 200.0   
     S0 = [v0, y0]
     
     valores_dt = [0.1, 0.01, 0.001, 0.0001]
     
     for dt in valores_dt:
-        t_hist, S_hist = pvi.resolver_pvi(F_PVI_2, S0, t0, dt, paragem_no_mar)
+        t_hist, S_hist = pvi.preditor_corretor_4(F_PVI_2, S0, t0, dt, paragem_no_mar)
         
         v_hist = S_hist[:, 0]
         y_hist = S_hist[:, 1]
         
         idx_max = np.argmax(y_hist)
         y_max = y_hist[idx_max]
-        
         t_max = t_hist[idx_max]
-        
         t_total = t_hist[-1]
-        
         v_impacto = v_hist[-1]
         
         print(f"\n[ Resultados para dt = {dt} ]")
