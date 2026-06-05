@@ -1,11 +1,24 @@
 import numpy as np
 import autovalores as autov
 
+def relatorio_matriz(nome, A, mu_chute):
+    n = A.shape[0]
+    v0 = np.ones(n)
+    
+    print(f"\n{'-'*40}")
+    print(f" MATRIZ {nome} ({n}x{n})")
+    print(f"{'-'*40}")
+    
+    l_max, x_max, it1 = autov.potencia_regular(A, v0)
+    print(f"[REGULAR] Maior Autovalor: {l_max:.6f} (Iterações: {it1})")
+    
+    l_min, x_min, it2 = autov.potencia_inverso(A, v0)
+    print(f"[INVERSO] Menor Autovalor: {l_min:.6f} (Iterações: {it2})")
+    
+    l_mid, x_mid, it3 = autov.potencia_deslocamento(A, v0, mu=mu_chute)
+    print(f"[SHIFT μ={mu_chute}] Autovalor Pescado: {l_mid:.6f} (Iterações: {it3})")
+    
 if __name__ == "__main__":
-    print("="*50)
-    print(" CÁLCULO DE AUTOVALORES (MÉTODO DA POTÊNCIA)")
-    print("="*50)
-
     A1 = np.array([
         [5.0, 2.0, 1.0],
         [2.0, 3.0, 1.0],
@@ -13,6 +26,12 @@ if __name__ == "__main__":
     ])
     
     A2 = np.array([
+        [-14.0,   1.0,  -2.0],
+        [  1.0,  -1.0,   1.0],
+        [ -2.0,   1.0, -11.0]
+    ])
+    
+    A3 = np.array([
         [40.0,  8.0,  4.0,  2.0, 1.0],
         [ 8.0, 30.0, 12.0,  6.0, 2.0],
         [ 4.0, 12.0, 20.0,  1.0, 2.0],
@@ -20,18 +39,8 @@ if __name__ == "__main__":
         [ 1.0,  2.0,  2.0,  4.0, 5.0]
     ])
 
-    v0_A1 = np.ones(3)
-    v0_A2 = np.ones(5)
-
-    lambda1, x1, iters1 = autov.potencia_regular(A1, v0_A1)
-    print("\n[Matriz A1 (3x3)]")
-    print(f"Iterações necessárias: {iters1}")
-    print(f"Autovalor Dominante  : {lambda1:.5f}")
-    print(f"Autovetor Associado  : {x1}")
-
-    lambda2, x2, iters2 = autov.potencia_regular(A2, v0_A2)
-    print("\n[Matriz A2 (5x5)]")
-    print(f"Iterações necessárias: {iters2}")
-    print(f"Autovalor Dominante  : {lambda2:.5f}")
-    print(f"Autovetor Associado  : {x2}")
-    print("="*50)
+    relatorio_matriz("A1", A1, mu_chute=3.0)
+    
+    relatorio_matriz("A2", A2, mu_chute=-10.0)
+    
+    relatorio_matriz("A3", A3, mu_chute=20.0)
