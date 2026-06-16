@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../metodos')))
 import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
@@ -46,7 +49,7 @@ def rodar_processamento_imagens():
     print(" UNIDADE 1 - PROCESSAMENTO DE IMAGENS")
     print("="*50)
     
-    arquivo_imagem = "minha_foto.jpg"
+    arquivo_imagem = os.path.join(os.path.dirname(__file__), "../../minha_foto.jpg")
     if not os.path.exists(arquivo_imagem):
         print(f"Erro: O arquivo '{arquivo_imagem}' não foi encontrado.")
         return
@@ -62,8 +65,8 @@ def rodar_processamento_imagens():
     img_laplace = img.algoritmo_2_laplace(img_array, tolerancia=0.03)
     
     print("Salvando resultados...")
-    plt.imsave("resultado_sobel.jpg", img_sobel, cmap='gray')
-    plt.imsave("resultado_laplace.jpg", img_laplace, cmap='gray')
+    plt.imsave(os.path.join(os.path.dirname(__file__), "../resultados/resultado_sobel.jpg"), img_sobel, cmap='gray')
+    plt.imsave(os.path.join(os.path.dirname(__file__), "../resultados/resultado_laplace.jpg"), img_laplace, cmap='gray')
     
     # Criar imagem com as 3 enfileiradas
     fig, axes = plt.subplots(1, 3, figsize=(15, 5))
@@ -80,16 +83,16 @@ def rodar_processamento_imagens():
     axes[2].axis('off')
     
     plt.tight_layout()
-    plt.savefig('resultado_3_imagens_enfileiradas.png', dpi=300)
+    plt.savefig(os.path.join(os.path.dirname(__file__), "../resultados/resultado_3_imagens_enfileiradas.png"), dpi=300)
     plt.close(fig)
     
     print("Processamento concluído. Imagens salvas como 'resultado_sobel.jpg', 'resultado_laplace.jpg' e 'resultado_3_imagens_enfileiradas.png'.")
 
 if __name__ == "__main__":
-    with open("relatorio_un1_output.txt", "w", encoding="utf-8") as f_out:
+    with open(os.path.join(os.path.dirname(__file__), "../resultados/relatorio_un1_output.txt"), "w", encoding="utf-8") as f_out:
         import sys
         sys.stdout = f_out
         rodar_testes_derivadas()
         rodar_processamento_imagens()
         sys.stdout = sys.__stdout__
-    print("Resultados da Unidade 1 gerados com sucesso! Veja 'relatorio_un1_output.txt' e as imagens salvas.")
+    print("Resultados da Unidade 1 gerados com sucesso! Veja os arquivos na pasta resultados.")

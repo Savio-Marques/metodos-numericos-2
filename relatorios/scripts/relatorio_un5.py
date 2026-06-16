@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../metodos')))
 import numpy as np
 import matplotlib.pyplot as plt
 import pvc
@@ -42,13 +45,13 @@ def rodar_un5():
     plt.ylabel('u(x)')
     plt.grid(True)
     plt.legend()
-    plt.savefig('grafico_pvc.png')
+    plt.savefig(os.path.join(os.path.dirname(__file__), "../resultados/grafico_pvc.png"))
     print("\nGráfico gerado: grafico_pvc.png")
 
 if __name__ == "__main__":
-    with open("relatorio_un5_output.txt", "w", encoding="utf-8") as f_out:
+    with open(os.path.join(os.path.dirname(__file__), "../resultados/relatorio_un5_output.txt"), "w", encoding="utf-8") as f_out:
         import sys
         sys.stdout = f_out
         rodar_un5()
         sys.stdout = sys.__stdout__
-    print("Resultados da Unidade 5 gerados com sucesso! Veja 'relatorio_un5_output.txt' e 'grafico_pvc.png'.")
+    print("Resultados da Unidade 5 gerados com sucesso! Veja os arquivos na pasta resultados.")

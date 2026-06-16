@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../metodos')))
 import numpy as np
 import integrais as intg
 import integrais_singulares as ising
@@ -124,7 +127,7 @@ def rodar_integrais_multidimensionais():
     print(f"Aproximado: {res_3d:.6f} | Exato: {exato3d:.6f} | Erro: {abs(res_3d - exato3d):.2e}")
 
 if __name__ == "__main__":
-    with open("relatorio_un2_output.txt", "w", encoding="utf-8") as f_out:
+    with open(os.path.join(os.path.dirname(__file__), "../resultados/relatorio_un2_output.txt"), "w", encoding="utf-8") as f_out:
         import sys
         sys.stdout = f_out
         rodar_newton_cotes()
@@ -132,4 +135,4 @@ if __name__ == "__main__":
         rodar_exponenciais()
         rodar_integrais_multidimensionais()
         sys.stdout = sys.__stdout__
-    print("Resultados da Unidade 2 gerados com sucesso! Veja 'relatorio_un2_output.txt'.")
+    print("Resultados da Unidade 2 gerados com sucesso! Veja os arquivos na pasta resultados.")

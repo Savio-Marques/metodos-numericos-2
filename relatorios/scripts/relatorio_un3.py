@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../metodos')))
 import numpy as np
 import autovalores as av
 
@@ -70,10 +73,10 @@ def rodar_householder_qr():
     print(f"Número de iterações do método QR: {iteracoes}")
 
 if __name__ == "__main__":
-    with open("relatorio_un3_output.txt", "w", encoding="utf-8") as f_out:
+    with open(os.path.join(os.path.dirname(__file__), "../resultados/relatorio_un3_output.txt"), "w", encoding="utf-8") as f_out:
         import sys
         sys.stdout = f_out
         rodar_metodos_potencia()
         rodar_householder_qr()
         sys.stdout = sys.__stdout__
-    print("Resultados da Unidade 3 gerados com sucesso! Veja 'relatorio_un3_output.txt'.")
+    print("Resultados da Unidade 3 gerados com sucesso! Veja os arquivos na pasta resultados.")
