@@ -1,0 +1,45 @@
+==================================================
+ UNIDADE 3 - MÉTODOS DAS POTÊNCIAS
+==================================================
+Matriz A:
+[[ 4. -1.  1.]
+ [-1.  3. -2.]
+ [ 1. -2.  3.]]
+
+Vetor inicial v0: [1. 1. 1.]
+
+Autovalores exatos (numpy): [1. 3. 6.]
+
+--- Método da Potência Regular ---
+Autovalor dominante: 5.999999
+Autovetor correspondente: [ 0.57791395 -0.57706822  0.57706823]
+Iterações: 12
+
+--- Método da Potência Inverso ---
+Autovalor menor (em módulo): 1.000000
+Autovetor correspondente: [2.16390456e-04 7.07213689e-01 7.06999824e-01]
+Iterações: 8
+
+--- Método da Potência com Deslocamento (mu = 2.5) ---
+Autovalor mais próximo de 2.5: 3.000000
+Autovetor correspondente: [ 0.81649662  0.40843488 -0.40806153]
+Iterações: 9
+
+==================================================
+ UNIDADE 3 - HOUSEHOLDER + QR (Caixas Pretas)
+==================================================
+Matriz Original A:
+[[ 4. -1.  1.]
+ [-1.  3. -2.]
+ [ 1. -2.  3.]]
+
+--- Passo 1: Redução Tridiagonal por Householder ---
+Matriz Tridiagonal Simétrica (H * A * H):
+[[4.         1.41421356 0.        ]
+ [1.41421356 5.         0.        ]
+ [0.         0.         1.        ]]
+
+--- Passo 2: Método QR iterativo ---
+Autovalores encontrados na diagonal principal:
+[6. 3. 1.]
+Número de iterações do método QR: 23

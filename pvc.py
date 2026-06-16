@@ -69,3 +69,47 @@ def resolver_pvc2_2d(N, f_val=4.0):
             U_completa[j+1, i+1] = u_internos[index_k(i, j)]
             
     return U_completa
+
+def resolver_pvc_diferencas_finitas(P, Q, R, a, b, u_a, u_b, dx):
+    N = int(np.round((b - a) / dx))
+    n_incognitas = N - 1
+    
+    A = np.zeros((n_incognitas, n_incognitas))
+    B = np.zeros(n_incognitas)
+    
+    x = np.linspace(a, b, N + 1)
+    
+    for i in range(1, N): 
+        xi = x[i]
+        Pi = P(xi)
+        Qi = Q(xi)
+        Ri = R(xi)
+        
+        coef_im1 = 1.0 - (dx * Pi) / 2.0
+        coef_i   = -2.0 + (dx**2) * Qi
+        coef_ip1 = 1.0 + (dx * Pi) / 2.0
+        
+        idx = i - 1
+        
+        A[idx, idx] = coef_i
+        if idx > 0:
+            A[idx, idx-1] = coef_im1
+        if idx < n_incognitas - 1:
+            A[idx, idx+1] = coef_ip1
+            
+        b_val = (dx**2) * Ri
+        if i == 1:
+            b_val -= coef_im1 * u_a
+        if i == N - 1:
+            b_val -= coef_ip1 * u_b
+            
+        B[idx] = b_val
+        
+    y_internos = np.linalg.solve(A, B)
+    
+    y_completo = np.zeros(N + 1)
+    y_completo[0] = u_a
+    y_completo[-1] = u_b
+    y_completo[1:-1] = y_internos
+    
+    return x, y_completo

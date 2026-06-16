@@ -1,0 +1,30 @@
+==================================================
+ UNIDADE 1 - DIFERENCIAÇÃO NUMÉRICA
+==================================================
+
+--- Derivada Segunda Central O(h^4) de f(x) = sin(x) em x = pi/4 ---
+Valor Exato: -0.70710678
+h          | Aproximado   | Erro Absoluto  
+-------------------------------------------
+0.1        | -0.70710600  | 7.85e-07       
+0.01       | -0.70710678  | 7.73e-11       
+0.001      | -0.70710678  | 1.73e-10       
+0.0001     | -0.70710679  | 1.23e-08       
+
+--- Derivada Quarta Central de f(x) = sin(x) em x = pi/4 ---
+Valor Exato: 0.70710678
+h          | Aproximado   | Erro Absoluto  
+-------------------------------------------
+0.1        | 0.70592915   | 1.18e-03       
+0.01       | 0.70709508   | 1.17e-05       
+0.001      | 0.70798922   | 8.82e-04       
+0.0001     | 6.66133815   | 5.95e+00       
+
+==================================================
+ UNIDADE 1 - PROCESSAMENTO DE IMAGENS
+==================================================
+Carregando imagem...
+Aplicando Filtro de Sobel (pode levar alguns segundos)...
+Aplicando Filtro de Laplace (pode levar alguns segundos)...
+Salvando resultados...
+Processamento concluído. Imagens salvas como 'resultado_sobel.jpg', 'resultado_laplace.jpg' e 'resultado_3_imagens_enfileiradas.png'.

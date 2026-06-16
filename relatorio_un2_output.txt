@@ -1,0 +1,64 @@
+
+==================================================
+ 1) NEWTON-COTES (Abertas e Fechadas)
+==================================================
+Função: f(x) = e^x no intervalo [0.0, 1.0]
+Valor Exato: 1.718282
+
+Fórmulas Fechadas:
+Grau 1 (Trapézio): 1.859141 | Erro: 1.41e-01
+Grau 2 (Simpson 1/3): 1.718861 | Erro: 5.79e-04
+Grau 3 (Simpson 3/8): 1.718540 | Erro: 2.58e-04
+Grau 4 (Boole):       1.718283 | Erro: 8.59e-07
+
+Fórmulas Abertas:
+Grau 1: 1.671673 | Erro: 4.66e-02
+Grau 2 (Milne): 1.717777 | Erro: 5.05e-04
+Grau 3: 1.717930 | Erro: 3.52e-04
+Grau 4: 1.718280 | Erro: 1.74e-06
+
+==================================================
+ 2) FÓRMULAS DE GAUSS
+==================================================
+--- Gauss-Legendre (f(x)=e^x em [0,1]) ---
+n = 2: 1.717896 | Erro: 3.85e-04
+n = 3: 1.718281 | Erro: 8.24e-07
+n = 4: 1.718282 | Erro: 9.33e-10
+
+--- Gauss-Hermite (w(x)=e^-x^2) ---
+Função f(x) = x^2, Valor Exato: 0.886227
+n = 2: 0.886227 | Erro: 2.22e-16
+n = 3: 0.886227 | Erro: 2.22e-16
+n = 4: 0.886227 | Erro: 3.73e-08
+
+--- Gauss-Laguerre (w(x)=e^-x) ---
+Função f(x) = x^3, Valor Exato: 6.000000
+n = 2: 6.000000 | Erro: 8.88e-16
+n = 3: 5.999998 | Erro: 1.67e-06
+n = 4: 5.999995 | Erro: 4.73e-06
+
+--- Gauss-Chebyshev (w(x)=1/sqrt(1-x^2)) ---
+Função f(x) = x^2, Valor Exato: 1.570796
+n = 2: 1.570796 | Erro: 0.00e+00
+n = 3: 1.570796 | Erro: 2.22e-16
+n = 4: 1.570796 | Erro: 0.00e+00
+
+==================================================
+ 3) EXPONENCIAL SIMPLES E DUPLA
+==================================================
+Função singular f(x) = 1/sqrt(x) no intervalo [0.0, 1.0]
+Valor Exato: 2.000000
+
+Exponencial Simples: 1.999980 | Limite c=11.5 | Erro: 2.02e-05
+Exponencial Dupla  : 2.000000 | Limite c=3.5 | Erro: 2.31e-08
+
+==================================================
+ 4) INTEGRAIS DE ÁREAS E VOLUMES
+==================================================
+--- Integral 2D (Quadratura de Gauss 3 pontos) ---
+Função f(u,v) = u^2 + v^2 no domínio [-1, 1]x[-1, 1]
+Aproximado: 2.666667 | Exato: 2.666667 | Erro: 4.44e-16
+
+--- Integral 3D (Quadratura de Gauss 3 pontos) ---
+Função f(u,v,w) = u^2 + v^2 + w^2 no domínio [-1, 1]x[-1, 1]x[-1, 1]
+Aproximado: 8.000000 | Exato: 8.000000 | Erro: 1.78e-15

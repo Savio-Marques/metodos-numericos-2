@@ -64,3 +64,44 @@ def preditor_corretor_4(F, S0, t0, dt, condicao_parada, tol=1e-7, max_iter=100):
         historico_F.append(F(S_novo, t_prox))
         
     return np.array(historico_t), np.array(historico_S)
+
+def euler_explicito(F, S0, t0, dt, num_passos):
+    t = t0
+    S = np.array(S0, dtype=float)
+    
+    historico_t = [t]
+    historico_S = [S]
+    
+    for _ in range(num_passos):
+        S = S + dt * F(S, t)
+        t += dt
+        historico_t.append(t)
+        historico_S.append(S)
+        
+    return np.array(historico_t), np.array(historico_S)
+
+def euler_implicito(F, S0, t0, dt, num_passos, tol=1e-7, max_iter=100):
+    t = t0
+    S = np.array(S0, dtype=float)
+    
+    historico_t = [t]
+    historico_S = [S]
+    
+    for _ in range(num_passos):
+        t_prox = t + dt
+        S_prox_ant = S + dt * F(S, t) 
+        
+        for k in range(max_iter):
+            S_prox_novo = S + dt * F(S_prox_ant, t_prox)
+            erro_relativo = np.max(np.abs(S_prox_novo - S_prox_ant) / (np.abs(S_prox_novo) + 1e-15))
+            if erro_relativo < tol:
+                break
+            S_prox_ant = S_prox_novo
+            
+        S = S_prox_novo
+        t = t_prox
+        
+        historico_t.append(t)
+        historico_S.append(S)
+        
+    return np.array(historico_t), np.array(historico_S)
